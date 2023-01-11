@@ -1,0 +1,49 @@
+
+<h1 class="text">Dog Picture:</h1>
+{{#if dogPicture}}
+    <div class="grid-container">
+        {{#each dogPicture}}
+        <div class="grid-item item">
+            <img class="img" src="{{name}}" >
+            <div class="button-container">
+                <button class="like-button" onclick="like('{{name}}', this)">Like</button>
+                <button class="dislike-button" onclick="dislike('{{name}}', this)">Dislike</button>
+                <p class="likes-count" id="{{name}}-likes">Likes: {{likes}}</p>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+{{/if}}
+<script>
+     function like(pictureName, button) {
+    // Make an AJAX post request to the /dog/:name/like endpoint
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/dog/${pictureName}/like`);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Update the likes count in the HTML
+            const likesCountEl = document.getElementById(`${pictureName}-likes`);
+            likesCountEl.innerText = `Likes: ${xhr.response}`;
+            // change button text
+            button.innerText = "Liked"
+        }
+    };
+    xhr.send();
+  }
+  
+  function dislike(pictureName, button) {
+    // Make an AJAX post request to the /dog/:name/dislike endpoint
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `/dog/${pictureName}/dislike`);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Update the likes count in the HTML
+            const likesCountEl = document.getElementById(`${pictureName}-likes`);
+            likesCountEl.innerText = `Dislikes: ${xhr.response}`;
+            // change button text
+            button.innerText = "Disliked"
+        }
+    };
+    xhr.send();
+  }
+</script>

@@ -1,0 +1,15 @@
+<p>Cat List: where you are?</p>
+{{#if catList.length}}
+    <small># {{catList.length}}</small>
+    {{#each catList}}
+        <div>Katinas: {{name}} Seimininkas {{owner}} ID: {{_id}}</div>
+    {{/each}}
+{{/if}}
+
+<form class="form-inline" action="cats/create">
+  <label >Cats Name:</label>
+  <input type="name" id="name" placeholder="Enter cats name" name="name">
+  <label>Cats Owner:</label>
+  <input type="Owner" id="owner" placeholder="Enter cats Owner" name="owner">
+  <button type="submit">Submit</button>
+</form>
